@@ -1,0 +1,14 @@
+{
+	"name": "portal",
+	"version": "1.3.1",
+	"private": true,
+	"scripts": {
+	},
+	"devDependencies": {
+		"@semantic-release/git": "^10.0.1",
+		"semantic-release": "^23.0.2"
+	},
+	"type": "module",
+	"dependencies": {
+	}
+}
