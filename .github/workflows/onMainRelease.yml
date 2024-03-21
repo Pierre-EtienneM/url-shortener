@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Fetchs all history for all branches and tags
+          fetch-depth: 0 # Fetchssss all history for all branches and tags
       - name: Determine if tag is on main branch
         id: decide
         run: |
