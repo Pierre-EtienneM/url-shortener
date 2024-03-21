@@ -1,6 +1,8 @@
 name: semantic_release
 
-on: [workflow_call]
+on:
+  push:
+    branches: "*"
 
 permissions:
   contents: write # to be able to publish a GitHub release
@@ -21,7 +23,6 @@ jobs:
         with:
           node-version: 20.11
           cache: "npm"
-      - run: npm ci
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.MY_SECRET }}

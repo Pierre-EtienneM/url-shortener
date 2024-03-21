@@ -24,10 +24,3 @@ jobs:
           else
             echo "proceed=false" >> $GITHUB_OUTPUT
           fi
-
-  build_and_deploy:
-    uses: ./.github/workflows/build_and_deploy.yml
-    if: needs.check_main_branch.outputs.proceed == 'true'
-    secrets: inherit
-    with:
-      environment: Development
