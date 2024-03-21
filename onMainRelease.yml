@@ -1,0 +1,33 @@
+name: onMainRelease
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  check_if_main_branch:
+    runs-on: ubuntu-latest
+    outputs:
+      proceed: ${{ steps.decide.outputs.proceed }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all history for all branches and tags
+      - name: Determine if tag is on main branch
+        id: decide
+        run: |
+          BRANCH_NAME=$(git branch -r --contains ${{ github.sha }} | grep 'origin/main' | sed 's/origin\///' | xargs)
+
+          if [[ "$BRANCH_NAME" == "main" ]]; then
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          else
+            echo "proceed=false" >> $GITHUB_OUTPUT
+          fi
+
+  build_and_deploy:
+    uses: ./.github/workflows/build_and_deploy.yml
+    if: needs.check_main_branch.outputs.proceed == 'true'
+    secrets: inherit
+    with:
+      environment: Development
